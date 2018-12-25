@@ -1,0 +1,64 @@
+name: Quizes
+path: /
+
+routes:
+- upstream: /categories
+  method: GET
+  use: downstream
+  downstream: quiz-service/categories
+  auth: false
+
+- upstream: /categories/{id:guid}
+  method: GET
+  use: downstream
+  downstream: quiz-service/categories/{id}
+  auth: false
+
+- upstream: /categories
+  method: POST
+  use: downstream
+  downstream: quiz-service/categories
+  payload: create_category
+  schema: create_category.schema
+
+- upstream: /quizes
+  method: GET
+  use: downstream
+  downstream: quiz-service/quizes
+  auth: false
+
+- upstream: /quizes/{id:guid}
+  method: GET
+  use: downstream
+  downstream: quiz-service/quizes/{id}
+  auth: false
+
+- upstream: /quizes
+  method: POST
+  use: downstream
+  downstream: quiz-service/quizes
+  payload: create_quiz
+  schema: create_quiz.schema
+
+- upstream: /words
+  method: GET
+  use: downstream
+  downstream: quiz-service/words
+  auth: false
+
+- upstream: /words/{id:guid}
+  method: GET
+  use: downstream
+  downstream: quiz-service/words/{id}
+  auth: false
+
+- upstream: /words
+  method: POST
+  use: downstream
+  downstream: quiz-service/words
+  payload: create_word
+  schema: create_word.schema
+  
+services:
+  quiz-service:
+    url: localhost:5002
